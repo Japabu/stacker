@@ -9,7 +9,7 @@
 //! consider one of the safe abstractions over this crate such as `stacker`. Another good place to
 //! look at is the crates.io’s reverse dependency list.
 
-#![allow(unused_macros)]
+#![allow(unused_macros, unsafe_op_in_unsafe_fn)]
 #![no_std]
 
 macro_rules! extern_item {

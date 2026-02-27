@@ -22,7 +22,13 @@
 //! });
 //! ```
 
-#![allow(improper_ctypes)]
+#![allow(
+    improper_ctypes,
+    unsafe_op_in_unsafe_fn,
+    unexpected_cfgs,
+    unused_extern_crates,
+    unreachable_pub,
+)]
 
 #[macro_use]
 extern crate cfg_if;
@@ -135,11 +141,11 @@ fn set_stack_limit(l: Option<usize>) {
 
 psm_stack_manipulation! {
     yes {
-        #[cfg(not(any(target_arch = "wasm32",target_os = "hermit")))]
+        #[cfg(not(any(target_arch = "wasm32", target_os = "hermit", target_os = "toyos")))]
         #[path = "mmap_stack_restore_guard.rs"]
         mod stack_restore_guard;
 
-        #[cfg(any(target_arch = "wasm32",target_os = "hermit"))]
+        #[cfg(any(target_arch = "wasm32", target_os = "hermit", target_os = "toyos"))]
         #[path = "alloc_stack_restore_guard.rs"]
         mod stack_restore_guard;
 
